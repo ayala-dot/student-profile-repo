@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
+
+@theme {
+  --font-sans: "Heebo", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-primary-dark: #0D1B2A;
+  --color-primary: #1B2A3B;
+  --color-primary-light: #2E4057;
+  --color-background: #F4F6F8;
+  --color-surface: #FFFFFF;
+  
+  --color-success: #2E7D32;
+  --color-warning: #E65100;
+  --color-danger: #C62828;
+  --color-info: #1565C0;
+  
+  --color-text-primary: #0D1B2A;
+  --color-text-secondary: #4A5568;
+  --color-text-disabled: #A0AEC0;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-background text-text-primary;
+    direction: rtl;
+  }
+}
