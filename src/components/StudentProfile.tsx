@@ -63,18 +63,37 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, onBack }) => {
         useCORS: true,
         logging: false,
         backgroundColor: '#F4F6F8',
-        windowWidth: element.scrollWidth,
-        windowHeight: element.scrollHeight,
       });
       
       const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'px',
-        format: [canvas.width / 2, canvas.height / 2]
-      });
       
-      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width / 2, canvas.height / 2);
+      // A4 dimensions in mm
+      const pdfWidth = 210;
+      const pdfHeight = 297;
+      const margin = 15; // 15mm margin for a "smaller" look
+      
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      
+      // Calculate dimensions to fit in A4 while maintaining aspect ratio
+      const imgProps = pdf.getImageProperties(imgData);
+      const contentWidth = pdfWidth - (margin * 2);
+      const contentHeight = (imgProps.height * contentWidth) / imgProps.width;
+      
+      // If content is taller than A4, we might need multiple pages or scale it down further
+      // For now, let's scale it to fit the width and see if it fits the height
+      let finalHeight = contentHeight;
+      let finalWidth = contentWidth;
+      
+      if (finalHeight > (pdfHeight - margin * 2)) {
+        finalHeight = pdfHeight - (margin * 2);
+        finalWidth = (imgProps.width * finalHeight) / imgProps.height;
+      }
+
+      // Center horizontally
+      const xPos = (pdfWidth - finalWidth) / 2;
+      const yPos = margin;
+
+      pdf.addImage(imgData, 'PNG', xPos, yPos, finalWidth, finalHeight);
       pdf.save(`פרופיל_תלמיד_${student.name.replace(/\s+/g, '_')}.pdf`);
     } catch (error) {
       console.error('Error generating PDF:', error);
@@ -155,7 +174,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, onBack }) => {
       </div>
 
       {/* Exportable Content Area */}
-      <div ref={profileRef} className="space-y-8 p-4 bg-background rounded-xl">
+      <div ref={profileRef} className="space-y-8 p-8 bg-background rounded-xl border border-gray-100 shadow-sm">
         {/* Report Header for PDF */}
         <div className="border-b-2 border-primary-dark pb-6">
           <div className="flex justify-between items-end">
