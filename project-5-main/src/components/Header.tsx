@@ -7,7 +7,7 @@ const Header: React.FC = () => {
       <div className="flex items-center gap-4">
         {/* Logo Image */}
         <img
-          src="/logo/לוגו של בוקסבוים.jpeg"
+          src="/logo/smartyapp-logo.jpeg"
           alt="SmartApp Logo"
           className="h-14 flex-shrink-0"
         />
