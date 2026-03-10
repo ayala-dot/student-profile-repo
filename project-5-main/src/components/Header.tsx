@@ -6,9 +6,9 @@ const Header: React.FC = () => {
     <header className="bg-gradient-to-r from-[#0D1B2A] to-[#1B2A3B] text-white flex items-center justify-between px-6 py-3 shadow-lg sticky top-0 z-50">
       <div className="flex items-center gap-4">
         {/* Logo Image */}
-        <img 
-          src="/logo/לוגו של בוקסבוים.jpeg" 
-          alt="SmartApp Logo" 
+        <img
+          src="/logo/לוגו של בוקסבוים.jpeg"
+          alt="SmartApp Logo"
           className="h-14 flex-shrink-0"
         />
 
